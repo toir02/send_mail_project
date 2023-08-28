@@ -26,3 +26,12 @@ class Mail(models.Model):
     class Meta:
         verbose_name = 'Рассылка'
         verbose_name_plural = 'Рассылки'
+
+
+class TextMail(models.Model):
+    topic = models.CharField(max_length=200, verbose_name='тема письма')
+    body = models.TextField(verbose_name='тело письма')
+
+    class Meta:
+        verbose_name = 'Сообщение для рассылки'
+        verbose_name_plural = 'Сообщения для рассылки'
