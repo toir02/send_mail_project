@@ -16,3 +16,13 @@ class Client(models.Model):
         verbose_name = 'Клиент'
         verbose_name_plural = 'Клиенты'
         ordering = ('full_name',)
+
+
+class Mail(models.Model):
+    time = models.TimeField(verbose_name='время рассылки')
+    interval = models.DurationField(verbose_name='периодичность')
+    status = models.CharField(max_length=10, verbose_name='статус рассылки')
+
+    class Meta:
+        verbose_name = 'Рассылка'
+        verbose_name_plural = 'Рассылки'
