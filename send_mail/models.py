@@ -35,3 +35,12 @@ class TextMail(models.Model):
     class Meta:
         verbose_name = 'Сообщение для рассылки'
         verbose_name_plural = 'Сообщения для рассылки'
+
+
+class LogsMail(models.Model):
+    time_last_try = models.DateTimeField(verbose_name='дата и время последней попытки')
+    status_try = models.CharField(max_length=10, verbose_name='статус последней попытки')
+    answer_mail_server = models.TextField(verbose_name='ответ почтового сервера', **NULLABLE)
+
+    class Meta:
+        verbose_name = 'Логи сообщения'
