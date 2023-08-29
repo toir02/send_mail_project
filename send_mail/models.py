@@ -48,3 +48,4 @@ class LogsMail(models.Model):
 
     class Meta:
         verbose_name = 'Логи сообщения'
+        verbose_name_plural = 'Логи сообщения'
