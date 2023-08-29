@@ -44,5 +44,7 @@ class LogsMail(models.Model):
     status_try = models.CharField(max_length=10, verbose_name='статус последней попытки')
     answer_mail_server = models.TextField(verbose_name='ответ почтового сервера', **NULLABLE)
 
+    mail = models.ForeignKey(Mail, on_delete=models.CASCADE, verbose_name='письмо')
+
     class Meta:
         verbose_name = 'Логи сообщения'
