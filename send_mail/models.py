@@ -19,8 +19,15 @@ class Client(models.Model):
 
 
 class Mail(models.Model):
-    time = models.TimeField(verbose_name='время рассылки')
-    interval = models.DurationField(verbose_name='периодичность')
+
+    CHOICES = (
+        ('D', 'Каждый день'),
+        ('W', 'Каждую неделю'),
+        ('M', 'Каждый месяц')
+    )
+
+    time = models.TimeField(verbose_name='время рассылки', default='09:00')
+    interval = models.CharField(verbose_name='периодичность', choices=CHOICES)
     status = models.CharField(max_length=10, verbose_name='статус рассылки')
 
     class Meta:
