@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.views.generic import ListView
+
+from send_mail.models import Client
 
 
-def index(request):
-    return render(request, 'send_mail/base.html')
+class ClientListView(ListView):
+    model = Client
