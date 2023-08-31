@@ -19,8 +19,15 @@ class Client(models.Model):
 
 
 class Mail(models.Model):
-    time = models.TimeField(verbose_name='время рассылки')
-    interval = models.DurationField(verbose_name='периодичность')
+
+    CHOICES = (
+        ('D', 'Каждый день'),
+        ('W', 'Каждую неделю'),
+        ('M', 'Каждый месяц')
+    )
+
+    time = models.TimeField(verbose_name='время рассылки', default='09:00')
+    interval = models.CharField(verbose_name='периодичность', choices=CHOICES)
     status = models.CharField(max_length=10, verbose_name='статус рассылки')
 
     class Meta:
@@ -32,6 +39,8 @@ class TextMail(models.Model):
     topic = models.CharField(max_length=200, verbose_name='тема письма')
     body = models.TextField(verbose_name='тело письма')
 
+    mail = models.ForeignKey(Mail, on_delete=models.CASCADE, verbose_name='письмо')
+
     class Meta:
         verbose_name = 'Сообщение для рассылки'
         verbose_name_plural = 'Сообщения для рассылки'
@@ -42,5 +51,8 @@ class LogsMail(models.Model):
     status_try = models.CharField(max_length=10, verbose_name='статус последней попытки')
     answer_mail_server = models.TextField(verbose_name='ответ почтового сервера', **NULLABLE)
 
+    mail = models.ForeignKey(Mail, on_delete=models.CASCADE, verbose_name='письмо')
+
     class Meta:
         verbose_name = 'Логи сообщения'
+        verbose_name_plural = 'Логи сообщения'
