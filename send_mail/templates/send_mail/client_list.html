@@ -20,9 +20,9 @@
                 <a class="btn btn-lg btn-block btn-outline-primary"
                    href="{% url 'send_mail:view_client' object.pk %}">Посмотреть</a>
                 <a class="btn btn-lg btn-block btn-outline-primary"
-                   href="{% url 'send_mail:client_form' object.pk %}">Изменить</a>
+                   href="{% url 'send_mail:edit_client' object.pk %}">Изменить</a>
                 <a class="btn btn-lg btn-block btn-outline-primary"
-                   href="{% url 'send_mail:client_confirm_delete' object.pk %}">Удалить</a>
+                   href="{% url 'send_mail:delete_client' object.pk %}">Удалить</a>
             </div>
         </div>
     </div>
