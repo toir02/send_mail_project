@@ -13,9 +13,9 @@
                 <h4 class="my-0 font-weight-normal">{{ object }}</h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">{{ object.email }}</h1>
+                <h5 class="card-title pricing-card-title">{{ object.email }}</h5>
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                    {{ object.comment|slice:100 }}...
+                    {{ object.comment|slice:100 }}
                 </ul>
                 <a class="btn btn-lg btn-block btn-outline-primary"
                    href="{% url 'send_mail:view_client' object.pk %}">Посмотреть</a>
