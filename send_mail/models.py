@@ -34,7 +34,7 @@ class Mail(models.Model):
 
     time = models.TimeField(verbose_name='время рассылки', default='09:00')
     period = models.CharField(max_length=30, verbose_name='периодичность', choices=PERIOD_CHOICES)
-    status = models.CharField(max_length=10, verbose_name='статус рассылки', choices=STATUS_CHOICES)
+    status = models.CharField(max_length=10, verbose_name='статус рассылки', choices=STATUS_CHOICES, default='created')
 
     class Meta:
         verbose_name = 'Рассылка'
