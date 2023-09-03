@@ -64,7 +64,7 @@ class LogMail(models.Model):
         verbose_name_plural = 'Логи сообщения'
 
 
-class MailinClient(models.Model):
+class MailingClient(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='клиент')
     settings = models.ForeignKey(MailSettings, on_delete=models.CASCADE, verbose_name='настройка')
 
