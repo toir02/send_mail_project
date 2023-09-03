@@ -53,11 +53,11 @@ class TextMail(models.Model):
 
 
 class LogMail(models.Model):
-    time_last_try = models.DateTimeField(verbose_name='дата и время последней попытки')
-    status_try = models.CharField(max_length=10, verbose_name='статус последней попытки')
-    answer_mail_server = models.TextField(verbose_name='ответ почтового сервера', **NULLABLE)
+    time = models.DateTimeField(auto_now_add=True, verbose_name='дата и время последней попытки')
+    status = models.BooleanField(default=True, verbose_name='статус последней попытки')
+    response = models.TextField(verbose_name='ответ почтового сервера', **NULLABLE)
 
-    mail = models.ForeignKey(MailSettings, on_delete=models.CASCADE, verbose_name='письмо')
+    settings = models.ForeignKey(MailSettings, on_delete=models.CASCADE, verbose_name='настройка')
 
     class Meta:
         verbose_name = 'Логи сообщения'
