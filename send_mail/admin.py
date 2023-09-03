@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from send_mail.models import Client, Mail, TextMail, LogsMail
+from send_mail.models import Client, MailSettings, TextMail, LogMail
 
 
 @admin.register(Client)
@@ -10,8 +10,8 @@ class ClientAdmin(admin.ModelAdmin):
     search_fields = ('full_name', 'email')
 
 
-@admin.register(Mail)
-class MailAdmin(admin.ModelAdmin):
+@admin.register(MailSettings)
+class MailSettingsAdmin(admin.ModelAdmin):
     list_display = ('time', 'period', 'status')
 
 
@@ -22,6 +22,6 @@ class TextMailAdmin(admin.ModelAdmin):
     search_fields = ('topic',)
 
 
-@admin.register(LogsMail)
-class LogsMailAdmin(admin.ModelAdmin):
+@admin.register(LogMail)
+class LogMailAdmin(admin.ModelAdmin):
     list_display = ('time_last_try', 'status_try', 'answer_mail_server')
