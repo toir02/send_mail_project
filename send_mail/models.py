@@ -62,3 +62,15 @@ class LogMail(models.Model):
     class Meta:
         verbose_name = 'Логи сообщения'
         verbose_name_plural = 'Логи сообщения'
+
+
+class MailinClient(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='клиент')
+    settings = models.ForeignKey(MailSettings, on_delete=models.CASCADE, verbose_name='настройка')
+
+    def __str__(self):
+        return f'{self.client} {self.settings}'
+
+    class Meta:
+        verbose_name = 'Письмо'
+        verbose_name_plural = 'Письма'
