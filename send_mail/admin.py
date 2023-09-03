@@ -24,4 +24,4 @@ class TextMailAdmin(admin.ModelAdmin):
 
 @admin.register(LogMail)
 class LogMailAdmin(admin.ModelAdmin):
-    list_display = ('time_last_try', 'status_try', 'answer_mail_server')
+    list_display = ('time', 'status', 'response')
