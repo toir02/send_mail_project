@@ -3,14 +3,17 @@
 <div class="row text-center">
     <div class="col-md-8">
         <h3 class="pb-4 mb-4 border-bottom">
-            {{ object }}
+            Рассылка
         </h3>
 
         <article class="blog-post">
-            <p>Email: {{ object.email }}</p>
+            <p>Тема рассылки: {{ object.message.topic }}</p>
         </article>
         <article class="blog-post">
-            <p>Комментарий: {{ object.comment }}</p>
+            <p>Содержание: {{ object.message.body }}</p>
+        </article>
+        <article class="blog-post">
+            <p>Статус рассылки: {{ object.status }}</p>
         </article>
 
     </div>
