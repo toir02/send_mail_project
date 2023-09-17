@@ -4,7 +4,7 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 from send_mail.models import MailSettings
 
 
-class MailingListView(ListView):
+class MailListView(ListView):
     model = MailSettings
     template_name = 'send_mail/mail_list.html'
 
