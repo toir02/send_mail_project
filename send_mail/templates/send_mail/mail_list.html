@@ -4,25 +4,24 @@
     <h1 class="display-4">Сервис рассылок</h1>
     <p class="lead">Сервис рассылок - это отличный вариант отправки уведомлений большому количеству пользователей.</p>
     <div class="col-12 mb-5">
-        <a class="btn btn-outline-primary" href="{% url 'send_mail:create_client' %}">Добавить нового клиента</a>
+        <a class="btn btn-outline-primary" href="{% url 'send_mail:create_client' %}">Добавить новую рассылку</a>
     </div>
     {% for object in object_list %}
     <div class="col-3">
         <div class="card mb-4 box-shadow">
             <div class="card-header">
-                <h4 class="my-0 font-weight-normal">{{ object }}</h4>
+                <h4 class="my-0 font-weight-normal">{{ object.message.topic }}</h4>
             </div>
             <div class="card-body">
-                <h5 class="card-title pricing-card-title">{{ object.email }}</h5>
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                    {{ object.comment|slice:100 }}
+                    {{ object.message.body|truncatechars:45 }}
                 </ul>
                 <a class="btn btn-lg btn-block btn-outline-primary"
-                   href="{% url 'send_mail:view_client' object.pk %}">Посмотреть</a>
+                   href="{% url 'send_mail:view_mail' object.pk %}">Посмотреть</a>
                 <a class="btn btn-lg btn-block btn-outline-primary"
-                   href="{% url 'send_mail:edit_client' object.pk %}">Изменить</a>
+                   href="{% url 'send_mail:edit_mail' object.pk %}">Изменить</a>
                 <a class="btn btn-lg btn-block btn-outline-primary"
-                   href="{% url 'send_mail:delete_client' object.pk %}">Удалить</a>
+                   href="{% url 'send_mail:delete_mail' object.pk %}">Удалить</a>
             </div>
         </div>
     </div>
