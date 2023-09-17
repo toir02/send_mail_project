@@ -9,22 +9,26 @@ class MailListView(ListView):
     template_name = 'send_mail/mail_list.html'
 
 
-class ClientCreateView(CreateView):
-    model = Client
-    fields = ('full_name', 'email', 'comment')
+class MailCreateView(CreateView):
+    model = MailSettings
+    fields = ('message', 'time', 'status', 'period')
     success_url = reverse_lazy('send_mail:index')
+    template_name = 'send_mail/mail_form.html'
 
 
-class ClientDetailView(DetailView):
-    model = Client
+class MailDetailView(DetailView):
+    model = MailSettings
+    template_name = 'send_mail/mail_detail.html'
 
 
-class ClientUpdateView(UpdateView):
-    model = Client
-    fields = ('full_name', 'email', 'comment')
+class MailUpdateView(UpdateView):
+    model = MailSettings
+    fields = ('message', 'time', 'status', 'period')
     success_url = reverse_lazy('send_mail:index')
+    template_name = 'send_mail/mail_form.html'
 
 
-class ClientDeleteView(DeleteView):
-    model = Client
+class MailDeleteView(DeleteView):
+    model = MailSettings
     success_url = reverse_lazy('send_mail:index')
+    template_name = 'send_mail/mail_confirm_delete.html'
