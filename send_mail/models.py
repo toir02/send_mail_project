@@ -47,8 +47,6 @@ class TextMail(models.Model):
     topic = models.CharField(max_length=200, verbose_name='тема письма')
     body = models.TextField(verbose_name='тело письма')
 
-    mail = models.ForeignKey(MailSettings, on_delete=models.CASCADE, verbose_name='письмо')
-
     class Meta:
         verbose_name = 'Сообщение для рассылки'
         verbose_name_plural = 'Сообщения для рассылки'
