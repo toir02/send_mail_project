@@ -4,8 +4,9 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 from send_mail.models import MailSettings
 
 
-class ClientListView(ListView):
-    model = Client
+class MailingListView(ListView):
+    model = MailSettings
+    template_name = 'send_mail/mail_list.html'
 
 
 class ClientCreateView(CreateView):
