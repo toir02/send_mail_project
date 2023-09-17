@@ -36,6 +36,8 @@ class MailSettings(models.Model):
     period = models.CharField(max_length=30, verbose_name='периодичность', choices=PERIOD_CHOICES)
     status = models.CharField(max_length=10, verbose_name='статус рассылки', choices=STATUS_CHOICES, default='created')
 
+    message = models.ForeignKey('TextMail', on_delete=models.CASCADE, verbose_name='сообщение', **NULLABLE)
+
     class Meta:
         verbose_name = 'Рассылка'
         verbose_name_plural = 'Рассылки'
@@ -44,8 +46,6 @@ class MailSettings(models.Model):
 class TextMail(models.Model):
     topic = models.CharField(max_length=200, verbose_name='тема письма')
     body = models.TextField(verbose_name='тело письма')
-
-    mail = models.ForeignKey(MailSettings, on_delete=models.CASCADE, verbose_name='письмо')
 
     class Meta:
         verbose_name = 'Сообщение для рассылки'
