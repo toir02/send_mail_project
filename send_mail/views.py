@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
-from send_mail.models import Client
+from send_mail.models import MailSettings
 
 
 class ClientListView(ListView):
