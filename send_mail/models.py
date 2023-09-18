@@ -44,8 +44,10 @@ class MailSettings(models.Model):
 
 
 class TextMail(models.Model):
-    topic = models.CharField(max_length=200, verbose_name='тема письма')
-    body = models.TextField(verbose_name='тело письма')
+    topic = models.CharField(max_length=200, verbose_name='тема')
+    body = models.TextField(verbose_name='сообщение')
+
+    settings = models.ForeignKey(MailSettings, on_delete=models.CASCADE, verbose_name='настройки', **NULLABLE)
 
     class Meta:
         verbose_name = 'Сообщение для рассылки'
