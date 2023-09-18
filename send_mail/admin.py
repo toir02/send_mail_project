@@ -12,7 +12,7 @@ class ClientAdmin(admin.ModelAdmin):
 
 @admin.register(MailSettings)
 class MailSettingsAdmin(admin.ModelAdmin):
-    list_display = ('time', 'period', 'status')
+    list_display = ('start_time', 'end_time', 'period', 'status')
 
 
 @admin.register(TextMail)
