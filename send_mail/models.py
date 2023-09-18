@@ -32,7 +32,8 @@ class MailSettings(models.Model):
         ('closed', 'Завершена')
     )
 
-    time = models.TimeField(verbose_name='время рассылки', default='09:00')
+    start_time = models.TimeField(verbose_name='время старта рассылки', default='09:00')
+    end_time = models.TimeField(verbose_name='время окончания рассылки', default='00:00')
     period = models.CharField(max_length=30, verbose_name='периодичность', choices=PERIOD_CHOICES)
     status = models.CharField(max_length=10, verbose_name='статус рассылки', choices=STATUS_CHOICES, default='created')
 
