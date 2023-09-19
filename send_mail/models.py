@@ -9,6 +9,8 @@ class Client(models.Model):
     full_name = models.CharField(max_length=150, verbose_name='ФИО')
     comment = models.TextField(verbose_name='комментарий', **NULLABLE)
 
+    settings = models.ForeignKey('MailSettings', on_delete=models.CASCADE, verbose_name='настройки', **NULLABLE)
+
     def __str__(self):
         return self.full_name
 
