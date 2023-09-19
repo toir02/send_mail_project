@@ -22,3 +22,10 @@ class TextMailForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = TextMail
         fields = '__all__'
+
+
+class ClientForm(StyleFormMixin, forms.ModelForm):
+
+    class Meta:
+        model = Client
+        fields = '__all__'
