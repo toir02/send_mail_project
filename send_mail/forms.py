@@ -15,7 +15,6 @@ class MailSettingsForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = MailSettings
         fields = '__all__'
-        exclude = ('message',)
 
 
 class TextMailForm(StyleFormMixin, forms.ModelForm):
