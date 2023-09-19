@@ -9,8 +9,6 @@ class Client(models.Model):
     full_name = models.CharField(max_length=150, verbose_name='ФИО')
     comment = models.TextField(verbose_name='комментарий', **NULLABLE)
 
-    settings = models.ForeignKey('MailSettings', on_delete=models.CASCADE, verbose_name='настройки', **NULLABLE)
-
     def __str__(self):
         return self.full_name
 
@@ -49,8 +47,6 @@ class MailSettings(models.Model):
 class TextMail(models.Model):
     topic = models.CharField(max_length=200, verbose_name='тема')
     body = models.TextField(verbose_name='сообщение')
-
-    settings = models.ForeignKey(MailSettings, on_delete=models.CASCADE, verbose_name='настройки', **NULLABLE)
 
     class Meta:
         verbose_name = 'Сообщение для рассылки'
