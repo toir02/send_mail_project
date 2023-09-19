@@ -1,17 +1,30 @@
 {% extends 'send_mail/base.html' %}
 {% block content %}
 <div class="col-12">
-    <div class="row">
-        <div class="col-6">
-            <div class="card">
-                <div class="card-body">
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" class="btn btn-primary">Создать</button>
-                    </form>
-                </div>
-            </div>
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                {{ text_mail_formset.management_form }}
+                {% for form in text_mail_formset %}
+                {{ form.as_p }}
+                {% endfor %}
+
+                {{ client_formset.management_form }}
+                {% for form in client_formset %}
+                {{ form.as_p }}
+                {% endfor %}
+
+                <button type="submit" class="btn btn-primary">
+                    {% if object %}
+                    Отправить
+                    {% else %}
+                    Создать
+                    {% endif %}
+                </button>
+            </form>
         </div>
     </div>
 </div>
