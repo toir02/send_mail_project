@@ -1,23 +1,24 @@
-{% extends 'send_mail/base.html'%}
+{% extends 'send_mail/base.html' %}
 {% block content %}
-<div class="row text-center">
-    <div class="col-md-8">
-        <h3 class="pb-4 mb-4 border-bottom">
-            Рассылка
-        </h3>
-
-        <article class="blog-post">
-            <p>Тема рассылки: {{ object.message.topic }}</p>
-        </article>
-        <article class="blog-post">
-            <p>Содержание: {{ object.message.body }}</p>
-        </article>
-        <article class="blog-post">
-            <p>Статус рассылки: {{ object.status }}</p>
-        </article>
-
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Тема рассылки: {{ object.message.topic }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Описание рассылки: {{ object.message.body }}
+                    </p>
+                    <p>
+                        Статус рассылки: {{ object.status }}
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>
-
 {% endblock %}

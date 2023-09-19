@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from send_mail.models import Client, MailSettings, TextMail, LogMail
+from send_mail.models import Client, MailSettings, TextMail, LogMail, MailingClient
 
 
 @admin.register(Client)
@@ -12,7 +12,7 @@ class ClientAdmin(admin.ModelAdmin):
 
 @admin.register(MailSettings)
 class MailSettingsAdmin(admin.ModelAdmin):
-    list_display = ('time', 'period', 'status')
+    list_display = ('start_time', 'end_time', 'period', 'status')
 
 
 @admin.register(TextMail)
@@ -25,3 +25,8 @@ class TextMailAdmin(admin.ModelAdmin):
 @admin.register(LogMail)
 class LogMailAdmin(admin.ModelAdmin):
     list_display = ('time', 'status', 'response')
+
+
+@admin.register(MailingClient)
+class MailingClientAdmin(admin.ModelAdmin):
+    list_display = ('client', 'settings')
