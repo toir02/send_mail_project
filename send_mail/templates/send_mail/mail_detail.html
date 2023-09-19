@@ -6,22 +6,19 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
-                        Тема рассылки: {{ object.message.message_subject }}
+                        Тема рассылки: {{ object.message.topic }}
                     </h3>
                 </div>
                 <div class="card-body">
                     <p>
-                        Описание рассылки: {{ object.message.message_body }}
+                        Описание рассылки: {{ object.message.body }}
                     </p>
                     <p>
                         Статус рассылки: {{ object.status }}
                     </p>
                 </div>
-                <div class="card-footer">
-                </div>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}
