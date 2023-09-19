@@ -1,6 +1,6 @@
 from django import forms
 
-from send_mail.models import MailSettings, TextMail, Client
+from send_mail.models import MailSettings, TextMail, Client, MailingClient
 
 
 class StyleFormMixin:
@@ -29,4 +29,10 @@ class ClientForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = Client
+        fields = '__all__'
+
+
+class MailingClientForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = MailingClient
         fields = '__all__'
