@@ -42,9 +42,7 @@ class MailCreateView(CreateView):
             text_mail.save()
             client.mailsettings_set.add(text_mail.settings)
 
-            return super().form_valid(form)
-        else:
-            return self.form_invalid(form)
+        return super().form_valid(form)
 
 
 class MailDetailView(DetailView):
@@ -78,14 +76,13 @@ class MailUpdateView(UpdateView):
 
         if client_form.is_valid() and text_mail_form.is_valid() and mail_settings_form.is_valid():
             client = client_form.save()
-            text_mail = text_mail_form.save(commit=False)
+            text_mail = text_mail_form.save()
             text_mail.settings = mail_settings_form.save()
             text_mail.save()
             client.mailsettings_set.add(text_mail.settings)
 
-            return super().form_valid(form)
-        else:
-            return self.form_invalid(form)
+        return super().form_valid(form)
+
 
 class MailDeleteView(DeleteView):
     model = MailSettings
