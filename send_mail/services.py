@@ -7,7 +7,7 @@ from send_mail.models import *
 
 
 def send_mailing(mailing):
-    if 'started' not in mailing.status:
+    if 'active' not in mailing.status:
         return
 
     current_time = datetime.now()
