@@ -30,10 +30,10 @@ def send_mailing(mailing):
                 [client.client.email],
                 fail_silently=False,
             )
-            status = 'success'
+            status = True
             response = None
         except Exception as ex:
-            status = 'fail'
+            status = False
             response = str(ex)
 
         log = LogMail(settingns=mailing, status=status, response=response)
