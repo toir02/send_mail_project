@@ -19,7 +19,7 @@ def send_mailing(mailing):
     if start_date > current_time or current_time > stop_date:
         return
 
-    client_list = MailingClient.objects.filter(mailing_id=mailing.id)
+    client_list = MailingClient.objects.filter(settings_id=mailing.id)
 
     for client in client_list:
         try:
