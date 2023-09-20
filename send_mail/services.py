@@ -39,3 +39,8 @@ def send_mailing(mailing):
         log = LogMail(settingns=mailing, status=status, response=response)
         log.save()
 
+
+def run_mail(period):
+    mailing = MailSettings.objects.filter(status='active', period=period)
+    for mail in mailing:
+        send_mailing(mail)
