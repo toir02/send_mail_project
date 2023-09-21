@@ -10,3 +10,10 @@ class StyleFormMixin:
         for field_name, field in self.fields.items():
             if field_name != "available":
                 field.widget.attrs['class'] = 'form-control'
+
+
+class RegisterForm(StyleFormMixin, UserCreationForm):
+
+    class Meta:
+        model = User
+        fields = ('email', 'password1', 'password2',)
