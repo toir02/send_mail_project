@@ -48,6 +48,9 @@ class TextMail(models.Model):
     topic = models.CharField(max_length=200, verbose_name='тема')
     body = models.TextField(verbose_name='сообщение')
 
+    def __str__(self):
+        return self.topic
+
     class Meta:
         verbose_name = 'Сообщение для рассылки'
         verbose_name_plural = 'Сообщения для рассылки'

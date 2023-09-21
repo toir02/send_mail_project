@@ -5,6 +5,7 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 
 from send_mail.forms import MailSettingsForm, ClientForm, TextMailForm
 from send_mail.models import MailSettings, TextMail, Client
+from send_mail.services import send_mailing
 
 
 class MailListView(ListView):
@@ -18,10 +19,10 @@ class MailCreateView(CreateView):
     success_url = reverse_lazy('send_mail:index')
     template_name = 'send_mail/mail_form.html'
 
-    # def form_valid(self, form):
-    #     response = super().form_valid(form)
-    #     send_mailing(self.object)
-    #     return response
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        send_mailing(self.object)
+        return response
 
 
 class MailDetailView(DetailView):
@@ -35,10 +36,10 @@ class MailUpdateView(UpdateView):
     success_url = reverse_lazy('send_mail:index')
     template_name = 'send_mail/mail_form.html'
 
-    # def form_valid(self, form):
-    #     response = super().form_valid(form)
-    #     send_mailing(self.object)
-    #     return response
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        send_mailing(self.object)
+        return response
 
 
 class MailDeleteView(DeleteView):
