@@ -17,3 +17,17 @@ class RegisterForm(StyleFormMixin, UserCreationForm):
     class Meta:
         model = User
         fields = ('email', 'password1', 'password2',)
+
+
+class VerificationForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('key',)
+
+
+class ResetPasswordForm(StyleFormMixin, forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('email',)
