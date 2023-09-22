@@ -1,7 +1,7 @@
 import random
 
 from django.urls import reverse_lazy
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView as BaseLoginView
 from django.views.generic import CreateView
 
@@ -17,7 +17,6 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        user.is_active = False
         user.save()
 
         key = random.randint(1000, 9999)
@@ -35,7 +34,9 @@ class RegisterView(CreateView):
 
 def verification_user(request):
     key = request.session.get('key')
-    user = request.user
+    user_email = request.user.email
+    user = get_object_or_404(User, email=user_email)
+
     if request.method == 'POST':
         form = VerificationForm(request.POST)
         if form.is_valid():
