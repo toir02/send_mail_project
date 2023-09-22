@@ -50,11 +50,12 @@ def verification_user(request):
 
 
 def success_verification(request):
-    return render(request, 'users/verification_success.html')
+    return render(request, 'users/success_verification.html')
 
 
 class LoginView(BaseLoginView):
     template_name = 'users/login.html'
+    model = User
 
     def get_success_url(self):
         return reverse_lazy('send_mail:index')
