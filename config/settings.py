@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 
     'send_mail',
     'django_crontab',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,5 @@ CRONJOBS = [
     ('0 0 * * 0', 'send_mail.services.run_mail', ['W']),
     ('0 0 1 * *', 'send_mail.services.run_mail', ['M']),
 ]
+
+AUTH_USER_MODEL = 'users.User'
