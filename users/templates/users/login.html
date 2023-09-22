@@ -1,0 +1,22 @@
+{% extends 'send_mail/base.html' %}
+
+{% block content %}
+<div class="col-6">
+    <div class="card">
+        <div class="card-header">
+            Вход
+        </div>
+        <form method="post" class="row">
+            <div class="card-body">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">
+                    Войти
+                </button>
+                <a href="{% url 'users:reset_password' %}" class="btn btn-sm btn-outline-scondary">Забыли пароль?
+                    Восстановить</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
