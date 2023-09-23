@@ -65,4 +65,6 @@ class LoginView(BaseLoginView):
 
 
 class LogoutView(BaseLogoutView):
-    pass
+
+    def get_success_url(self):
+        return reverse_lazy('send_mail:index')
