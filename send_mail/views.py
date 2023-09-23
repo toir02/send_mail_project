@@ -61,3 +61,10 @@ class ClientCreateView(CreateView):
 
 class ClientListView(ListView):
     model = Client
+
+
+class ClientDeleteView(DeleteView):
+    model = Client
+
+    def get_success_url(self):
+        return reverse_lazy('send_mail:index')
