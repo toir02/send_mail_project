@@ -56,7 +56,7 @@ class ClientCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('send_mail:index')
+        return reverse_lazy('send_mail:clients')
 
 
 class ClientListView(ListView):
@@ -67,4 +67,15 @@ class ClientDeleteView(DeleteView):
     model = Client
 
     def get_success_url(self):
-        return reverse_lazy('send_mail:index')
+        return reverse_lazy('send_mail:clients')
+
+
+class ClientUpdateView(UpdateView):
+    model = Client
+    form_class = ClientForm
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('send_mail:clients')
