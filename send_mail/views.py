@@ -46,3 +46,18 @@ class MailDeleteView(DeleteView):
     model = MailSettings
     success_url = reverse_lazy('send_mail:index')
     template_name = 'send_mail/mail_confirm_delete.html'
+
+
+class ClientCreateView(CreateView):
+    model = Client
+    form_class = ClientForm
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('send_mail:index')
+
+
+class ClientListView(ListView):
+    model = Client
