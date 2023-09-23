@@ -11,7 +11,7 @@
     <h5 class="my-0 mr-md-auto font-weight-normal">Сервис рассылок</h5>
     <nav class="ms-5">
         <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:index' %}">Рассылки</a>
-        <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:client_list' %}">Клиенты</a>
+        <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:clients' %}">Клиенты</a>
     </nav>
     <nav class="ms-md-auto">
         {% if user.is_authenticated %}
