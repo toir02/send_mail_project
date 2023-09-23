@@ -10,6 +10,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True, verbose_name='почта')
 
     key = models.IntegerField(verbose_name='ключ', **NULLABLE)
+    is_verified = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
