@@ -3,6 +3,7 @@ import random
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView as BaseLoginView
+from django.contrib.auth.views import LogoutView as BaseLogoutView
 from django.views.generic import CreateView
 
 from users.forms import *
@@ -42,11 +43,12 @@ def verification_user(request):
         if form.is_valid():
             entered_key = form.cleaned_data['key']
             if entered_key == key:
-                user.is_active = True
-                user.save()
+                if not user.is_verified:
+                    user.is_verified = True
+                    user.save()
                 return redirect('users:success_verification')
     else:
-        form = VerificationForm()
+        form = VerificationForm('Введите верный ключ верификации!')
     return render(request, 'users/verification.html', {'form': form})
 
 
@@ -57,6 +59,12 @@ def success_verification(request):
 class LoginView(BaseLoginView):
     template_name = 'users/login.html'
     model = User
+
+    def get_success_url(self):
+        return reverse_lazy('send_mail:index')
+
+
+class LogoutView(BaseLogoutView):
 
     def get_success_url(self):
         return reverse_lazy('send_mail:index')
