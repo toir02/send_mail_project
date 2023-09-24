@@ -9,7 +9,7 @@
                         {% csrf_token %}
                         <p>Вы действительно хотите удалить сообщение "{{ object.topic }}"?</p>
                         <button type="submit" class="btn btn-outline-primary">Подтвердить</button>
-                        <a href="{% url 'send_mail:message' %}" class="btn btn-danger">Отмена</a>
+                        <a href="{% url 'send_mail:messages' %}" class="btn btn-danger">Отмена</a>
                     </form>
                 </div>
             </div>
