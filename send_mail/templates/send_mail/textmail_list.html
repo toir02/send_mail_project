@@ -16,11 +16,11 @@
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                     {{ object.body|truncatechars:45 }}
                 </ul>
-                <a class="btn btn-lg btn-block btn-outline-primary"
+                <a class="btn btn-lg btn-block btn-outline-primary mt-3"
                    href="{% url 'send_mail:view_message' object.pk %}">Посмотреть</a>
-                <a class="btn btn-lg btn-block btn-outline-primary"
+                <a class="btn btn-lg btn-block btn-outline-primary mt-3"
                    href="{% url 'send_mail:edit_message' object.pk %}">Изменить</a>
-                <a class="btn btn-lg btn-block btn-outline-primary"
+                <a class="btn btn-lg btn-block btn-outline-primary mt-3"
                    href="{% url 'send_mail:delete_message' object.pk %}">Удалить</a>
             </div>
         </div>
