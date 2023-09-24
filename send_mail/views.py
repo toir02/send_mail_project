@@ -89,7 +89,7 @@ class TextMailCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('send_mail:message')
+        return reverse_lazy('send_mail:messages')
 
 
 class TextMailListView(ListView):
@@ -104,15 +104,15 @@ class TextMailUpdateView(UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('send_mail:message')
+        return reverse_lazy('send_mail:messages')
 
 
 class TextMailDeleteView(DeleteView):
-    model = Client
+    model = TextMail
 
     def get_success_url(self):
-        return reverse_lazy('send_mail:message')
+        return reverse_lazy('send_mail:messages')
 
 
 class TextMailDetailView(DetailView):
-    model = Client
+    model = TextMail
