@@ -40,8 +40,8 @@ class MailSettings(models.Model):
     message = models.ForeignKey('TextMail', on_delete=models.CASCADE, verbose_name='сообщение', **NULLABLE)
 
     class Meta:
-        verbose_name = 'Рассылка'
-        verbose_name_plural = 'Рассылки'
+        verbose_name = 'Настройка'
+        verbose_name_plural = 'Настройки'
 
 
 class TextMail(models.Model):
@@ -76,5 +76,5 @@ class MailingClient(models.Model):
         return f'{self.client} {self.settings}'
 
     class Meta:
-        verbose_name = 'Письмо'
-        verbose_name_plural = 'Письма'
+        verbose_name = 'Рассылка'
+        verbose_name_plural = 'Рассылки'
