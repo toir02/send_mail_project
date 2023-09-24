@@ -12,6 +12,7 @@
     <nav class="ms-5">
         <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:index' %}">Рассылки</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:clients' %}">Клиенты</a>
+        <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:message' %}">Сообщения</a>
     </nav>
     <nav class="ms-md-auto">
         {% if user.is_authenticated %}
