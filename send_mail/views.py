@@ -10,14 +10,12 @@ from send_mail.services import send_mailing
 
 class MailListView(ListView):
     model = MailSettings
-    template_name = 'send_mail/mail_list.html'
 
 
 class MailCreateView(CreateView):
     model = MailSettings
     form_class = MailSettingsForm
-    success_url = reverse_lazy('send_mail:index')
-    template_name = 'send_mail/mail_form.html'
+    success_url = reverse_lazy('send_mail:settings')
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -27,14 +25,12 @@ class MailCreateView(CreateView):
 
 class MailDetailView(DetailView):
     model = MailSettings
-    template_name = 'send_mail/mail_detail.html'
 
 
 class MailUpdateView(UpdateView):
     model = MailSettings
     form_class = MailSettingsForm
-    success_url = reverse_lazy('send_mail:index')
-    template_name = 'send_mail/mail_form.html'
+    success_url = reverse_lazy('send_mail:settings')
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -44,8 +40,7 @@ class MailUpdateView(UpdateView):
 
 class MailDeleteView(DeleteView):
     model = MailSettings
-    success_url = reverse_lazy('send_mail:index')
-    template_name = 'send_mail/mail_confirm_delete.html'
+    success_url = reverse_lazy('send_mail:settings')
 
 
 class ClientCreateView(CreateView):
