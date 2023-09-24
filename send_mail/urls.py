@@ -7,11 +7,11 @@ from send_mail.views import *
 app_name = SendMailConfig.name
 
 urlpatterns = [
-    path('', MailListView.as_view(), name='index'),
-    path('mail/create/', MailCreateView.as_view(), name='create_mail'),
-    path('mail/view/<int:pk>/', MailDetailView.as_view(), name='view_mail'),
-    path('mail/edit/<int:pk>/', MailUpdateView.as_view(), name='edit_mail'),
-    path('mail/delete/<int:pk>/', MailDeleteView.as_view(), name='delete_mail'),
+    path('', MailListView.as_view(), name='settings'),
+    path('settings/create/', MailCreateView.as_view(), name='create_settings'),
+    path('settings/view/<int:pk>/', MailDetailView.as_view(), name='view_settings'),
+    path('settings/edit/<int:pk>/', MailUpdateView.as_view(), name='edit_settings'),
+    path('settings/delete/<int:pk>/', MailDeleteView.as_view(), name='delete_settings'),
     path('client/delete/<int:pk>/', ClientDeleteView.as_view(), name='delete_client'),
     path('client/create/', ClientCreateView.as_view(), name='create_client'),
     path('client/edit/<int:pk>/', ClientUpdateView.as_view(), name='edit_client'),
