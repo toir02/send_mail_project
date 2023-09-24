@@ -4,7 +4,7 @@
     <h1 class="display-4">Сервис рассылок</h1>
     <p class="lead">Сервис рассылок - это отличный вариант отправки уведомлений большому количеству пользователей.</p>
     <div class="col-12 mb-5">
-        <a class="btn btn-outline-primary" href="{% url 'send_mail:create_mail' %}">Добавить новую рассылку</a>
+        <a class="btn btn-outline-primary" href="{% url 'send_mail:create_message' %}">Добавить новое сообщение</a>
     </div>
     {% for object in object_list %}
     <div class="col-3">
