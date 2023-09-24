@@ -79,3 +79,40 @@ class ClientUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('send_mail:clients')
+
+
+class TextMailCreateView(CreateView):
+    model = TextMail
+    form_class = TextMailForm
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('send_mail:message')
+
+
+class TextMailListView(ListView):
+    model = TextMail
+
+
+class TextMailUpdateView(UpdateView):
+    model = TextMail
+    form_class = TextMailForm
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('send_mail:message')
+
+
+class TextMailDeleteView(DeleteView):
+    model = Client
+
+    def get_success_url(self):
+        return reverse_lazy('send_mail:message')
+
+
+class TextMailDetailView(DetailView):
+    model = Client
