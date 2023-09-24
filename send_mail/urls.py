@@ -15,5 +15,9 @@ urlpatterns = [
     path('client/delete/<int:pk>', ClientDeleteView.as_view(), name='delete_client'),
     path('client/create/', ClientCreateView.as_view(), name='create_client'),
     path('client/edit/<int:pk>', ClientUpdateView.as_view(), name='edit_client'),
-    path('clients/', ClientListView.as_view(), name='clients'),
+    path('message/', TextMailListView.as_view(), name='message'),
+    path('message/create', TextMailCreateView.as_view(), name='create_message'),
+    path('message/view/<int:pk>', TextMailDetailView.as_view(), name='view_message'),
+    path('message/edit/<int:pk>', TextMailUpdateView.as_view(), name='edit_message'),
+    path('message/delete/<int:pk>', TextMailDeleteView.as_view(), name='delete_message'),
 ]
