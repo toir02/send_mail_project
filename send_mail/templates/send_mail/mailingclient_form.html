@@ -11,7 +11,6 @@
                         <div id="selected-clients-container">
                             <h4>Выбранные клиенты</h4>
                             <ul id="selected-clients-list">
-                                <!-- Здесь будут отображаться выбранные клиенты -->
                             </ul>
                         </div>
                         <button type="submit" class="btn btn-primary">
@@ -55,9 +54,7 @@ $(document).ready(function() {
         if (selectedClientId) {
             const selectedClient = $(`option[value="${selectedClientId}"]`);
 
-            // Проверьте, был ли клиент уже добавлен в список выбранных клиентов
             if (!selectedClientsList.find(`li[data-client-id="${selectedClientId}"]`).length) {
-                // Клиент еще не был добавлен, добавьте его в список выбранных клиентов
                 selectedClientsList.append(`<li data-client-id="${selectedClientId}">${selectedClient.text()} <button type="button" class="btn btn-danger remove-client">Удалить</button></li>`);
             }
         }
