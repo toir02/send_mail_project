@@ -1,11 +1,8 @@
-from django.forms import inlineformset_factory
-from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
 from send_mail.forms import MailSettingsForm, ClientForm, TextMailForm
-from send_mail.models import MailSettings, TextMail, Client
-from send_mail.services import send_mailing
+from send_mail.models import MailSettings, TextMail, Client, MailingClient
 
 
 class MailListView(ListView):
@@ -107,3 +104,38 @@ class TextMailDeleteView(DeleteView):
 
 class TextMailDetailView(DetailView):
     model = TextMail
+
+
+class MailingClientListView(ListView):
+    model = MailingClient
+
+
+class MailingClientCreateView(CreateView):
+    model = MailingClient
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('send_mail:mails')
+
+
+class MailingClientDetailView(DetailView):
+    model = MailingClient
+
+
+class MailingClientUpdateView(UpdateView):
+    model = MailingClient
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('send_mail:mails')
+
+
+class MailingClientDeleteView(DeleteView):
+    model = MailingClient
+
+    def get_success_url(self):
+        return reverse_lazy('send_mail:mails')
