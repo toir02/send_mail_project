@@ -5,9 +5,18 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-body">
-                    <form method="post">
+                    <form method="post" id="mailing-form">
                         {% csrf_token %}
                         {{ form.as_p }}
+                        <div id="client-list">
+                            <!-- Здесь отобразите список клиентов, каждого с кнопкой "Добавить" -->
+                            {% for client in clients %}
+                                <div class="client-item">
+                                    {{ client.name }}
+                                    <button type="button" class="add-client" data-client-id="{{ client.id }}">Добавить</button>
+                                </div>
+                            {% endfor %}
+                        </div>
                         <button type="submit" class="btn btn-primary">
                             {% if object %}
                             Изменить
@@ -22,3 +31,55 @@
     </div>
 </div>
 {% endblock %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Обработчик для кнопки "Добавить клиента"
+    $('#client-list').on('click', '.add-client', function() {
+        let clientId = $(this).data('client-id');
+
+        // Создаем элемент input для добавления выбранного клиента к форме
+        let inputHtml = `
+            <input type="hidden" name="clients" value="${clientId}">
+        `;
+
+        // Добавляем элемент input к форме
+        $('#mailing-form').append(inputHtml);
+
+        // Отображаем добавленного клиента в разделе "Здесь отображается список клиентов"
+        let clientName = $(this).prev().text();
+        let clientItemHtml = `
+            <div class="client-item">
+                ${clientName}
+                <button type="button" class="remove-client" data-client-id="${clientId}">Удалить</button>
+            </div>
+        `;
+        $(this).parent('.client-item').remove();
+
+        // Добавляем элемент списка выбранных клиентов
+        $('#selected-client-list').append(clientItemHtml);
+    });
+
+    // Обработчик для кнопки "Удалить" клиента из рассылки
+    $('#selected-client-list').on('click', '.remove-client', function() {
+        let clientId = $(this).data('client-id');
+
+        // Удаляем элемент input с id клиента из формы
+        $(`input[value="${clientId}"][name="clients"]`).remove();
+
+        // Удаляем элемент списка выбранных клиентов
+        $(this).parent('.client-item').remove();
+
+        // Восстанавливаем клиента в основном списке
+        let clientName = $(this).prev().text();
+        let clientItemHtml = `
+            <div class="client-item">
+                ${clientName}
+                <button type="button" class="add-client" data-client-id="${clientId}">Добавить</button>
+            </div>
+        `;
+
+        $('#client-list').append(clientItemHtml);
+    });
+});
+</script>
