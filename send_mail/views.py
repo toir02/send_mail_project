@@ -1,7 +1,9 @@
+import json
+
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
-from send_mail.forms import MailSettingsForm, ClientForm, TextMailForm, MailingClientForm
+from send_mail.forms import MailSettingsForm, ClientForm, TextMailForm, MailingClientForm, ClientSelectionForm
 from send_mail.models import MailSettings, TextMail, Client, MailingClient
 
 
@@ -115,7 +117,17 @@ class MailingClientCreateView(CreateView):
     form_class = MailingClientForm
 
     def form_valid(self, form):
+        self.object = form.save()
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Получите список клиентов и передайте его в контекст
+        clients = Client.objects.all()
+        context['clients'] = clients
+
+        return context
 
     def get_success_url(self):
         return reverse_lazy('send_mail:mails')
