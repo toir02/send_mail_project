@@ -134,9 +134,7 @@ EMAIL_USE_SSL = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRONJOBS = [
-    ('0 0 * * *', 'send_mail.services.run_mail', ['D']),
-    ('0 0 * * 0', 'send_mail.services.run_mail', ['W']),
-    ('0 0 1 * *', 'send_mail.services.run_mail', ['M']),
+    ('* * * * *', 'send_mail.services.send_mails')
 ]
 
 AUTH_USER_MODEL = 'users.User'
