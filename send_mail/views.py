@@ -18,9 +18,7 @@ class MailCreateView(CreateView):
     success_url = reverse_lazy('send_mail:settings')
 
     def form_valid(self, form):
-        response = super().form_valid(form)
-        send_mailing(self.object)
-        return response
+        return super().form_valid(form)
 
 
 class MailDetailView(DetailView):
@@ -33,9 +31,7 @@ class MailUpdateView(UpdateView):
     success_url = reverse_lazy('send_mail:settings')
 
     def form_valid(self, form):
-        response = super().form_valid(form)
-        send_mailing(self.object)
-        return response
+        return super().form_valid(form)
 
 
 class MailDeleteView(DeleteView):
