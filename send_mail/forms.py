@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import inlineformset_factory
 
 from send_mail.models import MailSettings, TextMail, Client, MailingClient
 
@@ -28,8 +29,20 @@ class ClientForm(StyleFormMixin, forms.ModelForm):
         fields = '__all__'
 
 
-class MailingClientForm(StyleFormMixin, forms.ModelForm):
+class MailingClientForm(forms.ModelForm):
 
     class Meta:
         model = MailingClient
-        fields = '__all__'
+        fields = ['settings']
+
+
+class ClientSelectionForm(forms.ModelForm):
+    class Meta:
+        model = MailingClient
+        fields = ['clients']
+
+    clients = forms.ModelMultipleChoiceField(
+        queryset=Client.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
