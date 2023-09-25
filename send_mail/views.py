@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
-from send_mail.forms import MailSettingsForm, ClientForm, TextMailForm
+from send_mail.forms import MailSettingsForm, ClientForm, TextMailForm, MailingClientForm
 from send_mail.models import MailSettings, TextMail, Client, MailingClient
 
 
@@ -109,9 +109,18 @@ class TextMailDetailView(DetailView):
 class MailingClientListView(ListView):
     model = MailingClient
 
+    # def get_context_data(self, *args, **kwargs):
+    #     context_data = super().get_context_data(*args, **kwargs)
+    #     context_data['clients'] = Client.objects.filter(users=self.request.user)
+    #     context_data['mailing_pk'] = self.kwargs.get('pk')
+    #     context_data['client_mailings'] = MailingClient.objects.filter(mailing_id=self.kwargs.get('pk'))
+    #
+    #     return context_data
+
 
 class MailingClientCreateView(CreateView):
     model = MailingClient
+    form_class = MailingClientForm
 
     def form_valid(self, form):
         return super().form_valid(form)
@@ -126,6 +135,7 @@ class MailingClientDetailView(DetailView):
 
 class MailingClientUpdateView(UpdateView):
     model = MailingClient
+    form_class = MailingClientForm
 
     def form_valid(self, form):
         return super().form_valid(form)
