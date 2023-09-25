@@ -109,14 +109,6 @@ class TextMailDetailView(DetailView):
 class MailingClientListView(ListView):
     model = MailingClient
 
-    # def get_context_data(self, *args, **kwargs):
-    #     context_data = super().get_context_data(*args, **kwargs)
-    #     context_data['clients'] = Client.objects.filter(users=self.request.user)
-    #     context_data['mailing_pk'] = self.kwargs.get('pk')
-    #     context_data['client_mailings'] = MailingClient.objects.filter(mailing_id=self.kwargs.get('pk'))
-    #
-    #     return context_data
-
 
 class MailingClientCreateView(CreateView):
     model = MailingClient
