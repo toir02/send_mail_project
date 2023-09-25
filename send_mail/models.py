@@ -39,6 +39,9 @@ class MailSettings(models.Model):
 
     message = models.ForeignKey('TextMail', on_delete=models.CASCADE, verbose_name='сообщение', **NULLABLE)
 
+    def __str__(self):
+        return f'{self.pk}'
+
     class Meta:
         verbose_name = 'Настройка'
         verbose_name_plural = 'Настройки'
