@@ -11,27 +11,25 @@ class StyleFormMixin:
 
 
 class MailSettingsForm(StyleFormMixin, forms.ModelForm):
-
     class Meta:
         model = MailSettings
         fields = '__all__'
 
 
 class TextMailForm(StyleFormMixin, forms.ModelForm):
-
     class Meta:
         model = TextMail
         fields = '__all__'
 
 
 class ClientForm(StyleFormMixin, forms.ModelForm):
-
     class Meta:
         model = Client
         fields = '__all__'
 
 
 class MailingClientForm(StyleFormMixin, forms.ModelForm):
+
     class Meta:
         model = MailingClient
         fields = '__all__'
