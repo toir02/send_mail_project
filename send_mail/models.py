@@ -9,6 +9,8 @@ class Client(models.Model):
     full_name = models.CharField(max_length=150, verbose_name='ФИО')
     comment = models.TextField(verbose_name='комментарий', **NULLABLE)
 
+    mail = models.ForeignKey('MailingClient', on_delete=models.CASCADE, verbose_name='рассылка', **NULLABLE)
+
     def __str__(self):
         return self.full_name
 
@@ -72,7 +74,7 @@ class LogMail(models.Model):
 
 
 class MailingClient(models.Model):
-    clients = models.ManyToManyField(Client, verbose_name='клиент')
+    clients = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='клиент', **NULLABLE)
     settings = models.ForeignKey(MailSettings, on_delete=models.CASCADE, verbose_name='настройка')
 
     def __str__(self):
