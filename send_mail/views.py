@@ -123,7 +123,6 @@ class MailingClientCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Получите список клиентов и передайте его в контекст
         clients = Client.objects.all()
         context['clients'] = clients
 
