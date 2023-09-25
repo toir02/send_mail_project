@@ -29,4 +29,9 @@ class LogMailAdmin(admin.ModelAdmin):
 
 @admin.register(MailingClient)
 class MailingClientAdmin(admin.ModelAdmin):
-    list_display = ('client', 'settings')
+    list_display = ('get_clients', 'settings')
+
+    @staticmethod
+    def get_clients(obj):
+        return ', '.join(str(client) for client in obj.clients.all())
+
