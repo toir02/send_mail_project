@@ -10,6 +10,7 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
     <h5 class="my-0 mr-md-auto font-weight-normal">Сервис рассылок</h5>
     <nav class="ms-5">
+        <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:mails' %}">Рассылки</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:settings' %}">Настройки</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:clients' %}">Клиенты</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:messages' %}">Сообщения</a>
