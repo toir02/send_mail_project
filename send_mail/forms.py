@@ -34,15 +34,3 @@ class MailingClientForm(forms.ModelForm):
     class Meta:
         model = MailingClient
         fields = ['settings']
-
-
-class ClientSelectionForm(forms.ModelForm):
-    class Meta:
-        model = MailingClient
-        fields = ['clients']
-
-    clients = forms.ModelMultipleChoiceField(
-        queryset=Client.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=False
-    )
