@@ -9,6 +9,8 @@ class Client(models.Model):
     full_name = models.CharField(max_length=150, verbose_name='ФИО')
     comment = models.TextField(verbose_name='комментарий', **NULLABLE)
 
+    mail = models.ForeignKey('MailingClient', on_delete=models.CASCADE, verbose_name='рассылка', **NULLABLE)
+
     def __str__(self):
         return self.full_name
 
@@ -39,9 +41,12 @@ class MailSettings(models.Model):
 
     message = models.ForeignKey('TextMail', on_delete=models.CASCADE, verbose_name='сообщение', **NULLABLE)
 
+    def __str__(self):
+        return f'{self.pk}'
+
     class Meta:
-        verbose_name = 'Рассылка'
-        verbose_name_plural = 'Рассылки'
+        verbose_name = 'Настройка'
+        verbose_name_plural = 'Настройки'
 
 
 class TextMail(models.Model):
@@ -69,12 +74,12 @@ class LogMail(models.Model):
 
 
 class MailingClient(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='клиент')
-    settings = models.ForeignKey(MailSettings, on_delete=models.CASCADE, verbose_name='настройка')
+    clients = models.ManyToManyField(Client, verbose_name='клиенты')
+    settings = models.ForeignKey(MailSettings, on_delete=models.CASCADE, verbose_name='настройка', **NULLABLE)
 
     def __str__(self):
-        return f'{self.client} {self.settings}'
+        return f'{self.clients} {self.settings}'
 
     class Meta:
-        verbose_name = 'Письмо'
-        verbose_name_plural = 'Письма'
+        verbose_name = 'Рассылка'
+        verbose_name_plural = 'Рассылки'

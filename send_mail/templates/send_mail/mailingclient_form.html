@@ -1,0 +1,92 @@
+{% extends 'send_mail/base.html' %}
+{% block content %}
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <hr>
+                        <div id="selected-clients-container">
+                            <h4 class="font-weight-normal">Выбранные клиенты</h4>
+                            <ul id="selected-clients-list" class="list-unstyled">
+                                {% for client in selected_clients %}
+                                <li data-client-id="{{ client.id }}">
+                                    {{ client.full_name }} ({{ client.email }})
+                                    <input type="hidden" name="selected_clients" value="{{ client.id }}">
+                                    <button type="button" class="btn btn-danger remove-client">Удалить</button>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            {% if object %}
+                            Изменить
+                            {% else %}
+                            Создать
+                            {% endif %}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <select id="client-selection" class="form-control">
+                        <option value="">Выберите клиента</option>
+                        {% for client in clients %}
+                        <option value="{{ client.id }}" data-client-name="{{ client.full_name }}" data-client-email="{{ client.email }}">{{ client.full_name }} ({{ client.email }})</option>
+                        {% endfor %}
+                    </select>
+                    <button type="button" class="btn btn-success add-client mt-3">Добавить клиента</button>
+                </div>
+            </div>
+            <div id="warning-message" style="display: none;" class="alert alert-warning mt-3">
+                Клиент уже добавлен
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    const selectedClientsList = $('#selected-clients-list');
+    const warningMessage = $('#warning-message');
+    const clientSelection = $('#client-selection');
+
+    $('.add-client').click(function() {
+        const selectedOption = clientSelection.find('option:selected');
+        const selectedClientId = selectedOption.val();
+
+        if (selectedClientId) {
+            const selectedClientNameValue = selectedOption.data('client-name');
+            const selectedClientEmailValue = selectedOption.data('client-email');
+
+            if (!selectedClientsList.find(`li[data-client-id="${selectedClientId}"]`).length) {
+                const listItem = `<li data-client-id="${selectedClientId}">${selectedClientNameValue} (${selectedClientEmailValue}) <input type="hidden" name="selected_clients" value="${selectedClientId}"> <button type="button" class="btn btn-danger remove-client">Удалить</button></li>`;
+                selectedClientsList.append(listItem);
+            } else {
+                warningMessage.show();
+                setTimeout(function() {
+                    warningMessage.hide();
+                }, 3000);
+            }
+        }
+    });
+
+    selectedClientsList.on('click', '.remove-client', function() {
+        $(this).closest('li').remove();
+    });
+});
+</script>
+
+<style>
+    #selected-clients-list li {
+        margin-bottom: 8px;
+    }
+</style>
+{% endblock %}

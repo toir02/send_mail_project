@@ -29,4 +29,6 @@ class LogMailAdmin(admin.ModelAdmin):
 
 @admin.register(MailingClient)
 class MailingClientAdmin(admin.ModelAdmin):
-    list_display = ('client', 'settings')
+    list_display = ('settings',)
+    filter_horizontal = ('clients',)
+

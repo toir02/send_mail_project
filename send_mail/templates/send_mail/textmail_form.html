@@ -7,9 +7,14 @@
                 <div class="card-body">
                     <form method="post">
                         {% csrf_token %}
-                        <p>Вы действительно хотите удалить клиента "{{ object.full_name }}"?</p>
-                        <button type="submit" class="btn btn-outline-primary">Подтвердить</button>
-                        <a href="{% url 'send_mail:clients' %}" class="btn btn-danger">Отмена</a>
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">
+                            {% if object %}
+                            Изменить
+                            {% else %}
+                            Создать
+                            {% endif %}
+                        </button>
                     </form>
                 </div>
             </div>

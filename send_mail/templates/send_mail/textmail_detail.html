@@ -1,0 +1,21 @@
+{% extends 'send_mail/base.html' %}
+{% block content %}
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Тема рассылки: {{ object.topic }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Описание рассылки: {{ object.body }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

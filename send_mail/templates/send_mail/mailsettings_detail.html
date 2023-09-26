@@ -6,15 +6,21 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
-                        Тема рассылки: {{ object.message.topic }}
+                        Настройки рассылки
                     </h3>
                 </div>
                 <div class="card-body">
                     <p>
-                        Описание рассылки: {{ object.message.body }}
+                        Период рассылки: {{ object.get_period_display }}
                     </p>
                     <p>
-                        Статус рассылки: {{ object.status }}
+                        Статус рассылки: {{ object.get_status_display }}
+                    </p>
+                    <p>
+                        Время начала рассылки: {{ object.start_time }}
+                    </p>
+                    <p>
+                        Время окончания рассылки: {{ object.end_time }}
                     </p>
                 </div>
             </div>

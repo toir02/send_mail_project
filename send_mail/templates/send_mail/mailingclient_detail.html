@@ -1,0 +1,36 @@
+{% extends 'send_mail/base.html' %}
+{% block content %}
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Рассылка {{ object.id }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Клиенты рассылки:<br>
+                        {% for client in object.clients.all %}
+                        {{ client.full_name }} / {{ client.email }}<br>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        Период рассылки: {{ object.settings.get_period_display }}
+                    </p>
+                    <p>
+                        Статус рассылки: {{ object.settings.get_status_display }}
+                    </p>
+                    <p>
+                        Время начала рассылки: {{ object.settings.start_time }}
+                    </p>
+                    <p>
+                        Время окончания рассылки: {{ object.settings.end_time }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
