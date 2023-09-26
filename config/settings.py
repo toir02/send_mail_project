@@ -123,6 +123,9 @@ STATICFILES_DIR = (
     BASE_DIR / 'static/',
 )
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'noreply@oscarbot.ru'
