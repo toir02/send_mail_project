@@ -11,7 +11,10 @@
                 </div>
                 <div class="card-body">
                     <p>
-                        Клиенты рассылки: {{ object.clients.full_name }} / {{ object.clients.email }}
+                        Клиенты рассылки:<br>
+                        {% for client in object.clients.all %}
+                        {{ client.full_name }} / {{ client.email }}<br>
+                        {% endfor %}
                     </p>
                     <p>
                         Период рассылки: {{ object.settings.get_period_display }}
