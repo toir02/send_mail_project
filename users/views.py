@@ -21,6 +21,9 @@ class RegisterView(CreateView):
         user.save()
 
         key = random.randint(1000, 9999)
+        user_email = self.request.POST.get('email')
+
+        self.request.session['user_email'] = user_email
         self.request.session['key'] = key
         user_email = self.request.POST.get('email')
         send_verification_mail(user_email, key)
@@ -35,7 +38,8 @@ class RegisterView(CreateView):
 
 def verification_user(request):
     key = request.session.get('key')
-    user_email = request.user.email
+    user_email = request.session.get('user_email')
+
     user = get_object_or_404(User, email=user_email)
 
     if request.method == 'POST':
@@ -48,7 +52,7 @@ def verification_user(request):
                     user.save()
                 return redirect('users:success_verification')
     else:
-        form = VerificationForm('Введите верный ключ верификации!')
+        form = VerificationForm()
     return render(request, 'users/verification.html', {'form': form})
 
 
@@ -61,10 +65,10 @@ class LoginView(BaseLoginView):
     model = User
 
     def get_success_url(self):
-        return reverse_lazy('send_mail:index')
+        return reverse_lazy('send_mail:mails')
 
 
 class LogoutView(BaseLogoutView):
 
     def get_success_url(self):
-        return reverse_lazy('send_mail:index')
+        return reverse_lazy('send_mail:mails')
