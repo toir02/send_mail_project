@@ -109,6 +109,15 @@ class TextMailDetailView(DetailView):
 class MailingClientListView(ListView):
     model = MailingClient
 
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return MailingClient.objects.none()
+
+        if self.request.user.groups.filter(name="manager").exists() or self.request.user.is_superuser:
+            return MailingClient.objects.all()
+
+        return MailingClient.objects.filter(created_by=self.request.user)
+
 
 class MailingClientCreateView(CreateView):
     model = MailingClient
@@ -119,6 +128,7 @@ class MailingClientCreateView(CreateView):
         selected_client_ids = self.request.POST.getlist('selected_clients')
 
         if selected_client_ids:
+            mailing_client.created_by = self.request.user
             mailing_client.save()
             mailing_client.clients.set(selected_client_ids)
 
@@ -146,6 +156,7 @@ class MailingClientUpdateView(UpdateView):
         selected_client_ids = self.request.POST.getlist('selected_clients')
 
         if selected_client_ids:
+            mailing_client.created_by = self.request.user
             mailing_client.save()
             mailing_client.clients.set(selected_client_ids)
 
