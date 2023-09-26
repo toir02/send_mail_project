@@ -14,7 +14,7 @@
         <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:settings' %}">Настройки</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:clients' %}">Клиенты</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:messages' %}">Сообщения</a>
-        <a class="p-2 btn btn-outline-primary" href="{% url 'blog:blog' %}">Сообщения</a>
+        <a class="p-2 btn btn-outline-primary" href="{% url 'blog:blog' %}">Блог</a>
     </nav>
     <nav class="ms-md-auto">
         {% if user.is_authenticated %}
