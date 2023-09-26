@@ -74,8 +74,8 @@ class LogMail(models.Model):
 
 
 class MailingClient(models.Model):
-    clients = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='клиент', **NULLABLE)
-    settings = models.ForeignKey(MailSettings, on_delete=models.CASCADE, verbose_name='настройка')
+    clients = models.ManyToManyField(Client, verbose_name='клиенты')
+    settings = models.ForeignKey(MailSettings, on_delete=models.CASCADE, verbose_name='настройка', **NULLABLE)
 
     def __str__(self):
         return f'{self.clients} {self.settings}'
