@@ -1,5 +1,4 @@
 from django import forms
-from django.forms import inlineformset_factory
 
 from send_mail.models import MailSettings, TextMail, Client, MailingClient
 
