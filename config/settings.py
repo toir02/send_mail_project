@@ -136,4 +136,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRONJOBS = [
     ('*/1 * * * *', 'send_mail.services.send_mails')
 ]
+
 AUTH_USER_MODEL = 'users.User'
