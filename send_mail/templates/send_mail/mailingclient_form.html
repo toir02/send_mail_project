@@ -36,7 +36,7 @@
                             <option value="{{ client.id }}" data-client-name="{{ client.full_name }}" data-client-email="{{ client.email }}">{{ client.full_name }} ({{ client.email }})</option>
                             {% endfor %}
                         </select>
-                        <button type="button" class="btn btn-success add-client">Добавить клиента</button>
+                        <button type="button" class="btn btn-success add-client mt-3">Добавить клиента</button>
                     </form>
                 </div>
             </div>
@@ -82,7 +82,7 @@ $(document).ready(function() {
 
     $(document).on('click', '.remove-client', function() {
         $(this).closest('li').remove();
-        selectedClientInfo.hide(); // Скрываем информацию при удалении клиента
+        selectedClientInfo.hide();
     });
 });
 </script>
