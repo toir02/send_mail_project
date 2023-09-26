@@ -12,6 +12,13 @@
                         <div id="selected-clients-container">
                             <h4 class="font-weight-normal">Выбранные клиенты</h4>
                             <ul id="selected-clients-list" class="list-unstyled">
+                                {% for client in selected_clients %}
+                                <li data-client-id="{{ client.id }}">
+                                    {{ client.full_name }} ({{ client.email }})
+                                    <input type="hidden" name="selected_clients" value="{{ client.id }}">
+                                    <button type="button" class="btn btn-danger remove-client">Удалить</button>
+                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
                         <button type="submit" class="btn btn-primary">
@@ -28,24 +35,17 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-body">
-                    <form method="post" id="client-selection-form">
-                        {% csrf_token %}
-                        <select id="client-selection" class="form-control">
-                            <option value="">Выберите клиента</option>
-                            {% for client in clients %}
-                            <option value="{{ client.id }}" data-client-name="{{ client.full_name }}" data-client-email="{{ client.email }}">{{ client.full_name }} ({{ client.email }})</option>
-                            {% endfor %}
-                        </select>
-                        <button type="button" class="btn btn-success add-client mt-3">Добавить клиента</button>
-                    </form>
+                    <select id="client-selection" class="form-control">
+                        <option value="">Выберите клиента</option>
+                        {% for client in clients %}
+                        <option value="{{ client.id }}" data-client-name="{{ client.full_name }}" data-client-email="{{ client.email }}">{{ client.full_name }} ({{ client.email }})</option>
+                        {% endfor %}
+                    </select>
+                    <button type="button" class="btn btn-success add-client mt-3">Добавить клиента</button>
                 </div>
             </div>
             <div id="warning-message" style="display: none;" class="alert alert-warning mt-3">
                 Клиент уже добавлен
-            </div>
-            <div id="selected-client-info" style="display: none;" class="mt-3">
-                <strong>Имя клиента:</strong> <span id="selected-client-name"></span><br>
-                <strong>Почта клиента:</strong> <span id="selected-client-email"></span>
             </div>
         </div>
     </div>
@@ -56,12 +56,10 @@
 $(document).ready(function() {
     const selectedClientsList = $('#selected-clients-list');
     const warningMessage = $('#warning-message');
-    const selectedClientInfo = $('#selected-client-info');
-    const selectedClientName = $('#selected-client-name');
-    const selectedClientEmail = $('#selected-client-email');
+    const clientSelection = $('#client-selection');
 
     $('.add-client').click(function() {
-        const selectedOption = $('#client-selection option:selected');
+        const selectedOption = clientSelection.find('option:selected');
         const selectedClientId = selectedOption.val();
 
         if (selectedClientId) {
@@ -69,8 +67,8 @@ $(document).ready(function() {
             const selectedClientEmailValue = selectedOption.data('client-email');
 
             if (!selectedClientsList.find(`li[data-client-id="${selectedClientId}"]`).length) {
-                selectedClientsList.append(`<li data-client-id="${selectedClientId}">${selectedClientNameValue} (${selectedClientEmailValue}) <button type="button" class="btn btn-danger remove-client">Удалить</button></li>`);
-
+                const listItem = `<li data-client-id="${selectedClientId}">${selectedClientNameValue} (${selectedClientEmailValue}) <input type="hidden" name="selected_clients" value="${selectedClientId}"> <button type="button" class="btn btn-danger remove-client">Удалить</button></li>`;
+                selectedClientsList.append(listItem);
             } else {
                 warningMessage.show();
                 setTimeout(function() {
@@ -80,9 +78,8 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on('click', '.remove-client', function() {
+    selectedClientsList.on('click', '.remove-client', function() {
         $(this).closest('li').remove();
-        selectedClientInfo.hide();
     });
 });
 </script>
