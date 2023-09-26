@@ -1,9 +1,7 @@
-import json
-
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
-from send_mail.forms import MailSettingsForm, ClientForm, TextMailForm, MailingClientForm, ClientSelectionForm
+from send_mail.forms import MailSettingsForm, ClientForm, TextMailForm, MailingClientForm
 from send_mail.models import MailSettings, TextMail, Client, MailingClient
 
 
@@ -117,15 +115,18 @@ class MailingClientCreateView(CreateView):
     form_class = MailingClientForm
 
     def form_valid(self, form):
-        self.object = form.save()
+        mailing_client = form.save(commit=False)
+        selected_client_ids = self.request.POST.getlist('selected_clients')
+
+        if selected_client_ids:
+            mailing_client.save()
+            mailing_client.clients.set(selected_client_ids)
+
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        clients = Client.objects.all()
-        context['clients'] = clients
-
+        context['clients'] = Client.objects.all()
         return context
 
     def get_success_url(self):
@@ -141,15 +142,20 @@ class MailingClientUpdateView(UpdateView):
     form_class = MailingClientForm
 
     def form_valid(self, form):
-        self.object = form.save()
+        mailing_client = form.save(commit=False)
+        selected_client_ids = self.request.POST.getlist('selected_clients')
+
+        if selected_client_ids:
+            mailing_client.save()
+            mailing_client.clients.set(selected_client_ids)
+
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        clients = Client.objects.all()
-        context['clients'] = clients
-
+        context['clients'] = Client.objects.all()
+        mailing_client = self.get_object()
+        context['selected_clients'] = mailing_client.clients.all()
         return context
 
     def get_success_url(self):
