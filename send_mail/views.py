@@ -1,8 +1,29 @@
+from random import sample
+
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
+from blog.models import Blog
 from send_mail.forms import MailSettingsForm, ClientForm, TextMailForm, MailingClientForm
 from send_mail.models import MailSettings, TextMail, Client, MailingClient
+
+
+def index(request):
+    blog = Blog.objects.all()
+    mailing_is_active = MailSettings.objects.filter(status='active')
+    client_mailing = MailingClient.objects.all()
+    unique_clients = client_mailing.values_list('clients', flat=True).distinct()
+    random_articles = sample(list(blog), k=min(len(blog), 3))
+
+    context = {
+        'random_articles': random_articles,
+        'total_mailings': len(client_mailing),
+        'active_mailings': len(mailing_is_active),
+        'unique_clients': len(unique_clients)
+    }
+
+    return render(request, 'send_mail/home.html', context)
 
 
 class MailListView(ListView):
