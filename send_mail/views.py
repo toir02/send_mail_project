@@ -99,7 +99,7 @@ class ClientUpdateView(UpdateView):
         return reverse_lazy('send_mail:clients')
 
 
-class TextMailCreateView(CreateView):
+class TextMailCreateView(ManagerRequiredMixin, CreateView):
     model = TextMail
     form_class = TextMailForm
 
@@ -114,7 +114,7 @@ class TextMailListView(ListView):
     model = TextMail
 
 
-class TextMailUpdateView(UpdateView):
+class TextMailUpdateView(ManagerRequiredMixin, UpdateView):
     model = TextMail
     form_class = TextMailForm
 
@@ -125,14 +125,14 @@ class TextMailUpdateView(UpdateView):
         return reverse_lazy('send_mail:messages')
 
 
-class TextMailDeleteView(DeleteView):
+class TextMailDeleteView(ManagerRequiredMixin, DeleteView):
     model = TextMail
 
     def get_success_url(self):
         return reverse_lazy('send_mail:messages')
 
 
-class TextMailDetailView(DetailView):
+class TextMailDetailView(ManagerRequiredMixin, DetailView):
     model = TextMail
 
 
@@ -149,7 +149,7 @@ class MailingClientListView(ListView):
         return MailingClient.objects.filter(created_by=self.request.user)
 
 
-class MailingClientCreateView(CreateView):
+class MailingClientCreateView(ManagerRequiredMixin, CreateView):
     model = MailingClient
     form_class = MailingClientForm
 
@@ -173,11 +173,11 @@ class MailingClientCreateView(CreateView):
         return reverse_lazy('send_mail:mails')
 
 
-class MailingClientDetailView(DetailView):
+class MailingClientDetailView(ManagerRequiredMixin, DetailView):
     model = MailingClient
 
 
-class MailingClientUpdateView(UpdateView):
+class MailingClientUpdateView(ManagerRequiredMixin, UpdateView):
     model = MailingClient
     form_class = MailingClientForm
 
@@ -203,7 +203,7 @@ class MailingClientUpdateView(UpdateView):
         return reverse_lazy('send_mail:mails')
 
 
-class MailingClientDeleteView(DeleteView):
+class MailingClientDeleteView(ManagerRequiredMixin, DeleteView):
     model = MailingClient
 
     def get_success_url(self):
