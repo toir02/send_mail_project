@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
 from send_mail.apps import SendMailConfig
 
@@ -7,7 +8,7 @@ from send_mail.views import *
 app_name = SendMailConfig.name
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', cache_page(30)(index), name='index'),
     path('settings/', MailListView.as_view(), name='settings'),
     path('settings/create/', MailCreateView.as_view(), name='create_settings'),
     path('settings/view/<int:pk>/', MailDetailView.as_view(), name='view_settings'),
