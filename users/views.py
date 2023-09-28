@@ -6,7 +6,7 @@ from django.urls import reverse_lazy, reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 
 from users.forms import *
 from users.models import User
@@ -74,6 +74,10 @@ class LogoutView(BaseLogoutView):
 
     def get_success_url(self):
         return reverse_lazy('send_mail:mails')
+
+
+class UserListView(ListView):
+    model = User
 
 
 @login_required
