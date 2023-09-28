@@ -1,6 +1,8 @@
 import random
 
-from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+from django.urls import reverse_lazy, reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
@@ -72,3 +74,18 @@ class LogoutView(BaseLogoutView):
 
     def get_success_url(self):
         return reverse_lazy('send_mail:mails')
+
+
+@login_required
+def block_user(request, pk):
+    if request.user.groups.filter(name="manager").exists() or request.user.is_superuser:
+        user = User.objects.get(pk=pk)
+        if not user.is_active:
+            user.is_active = True
+            user.save()
+        else:
+            user.is_active = False
+            user.save()
+        return redirect(reverse('users:user_list'))
+    else:
+        raise PermissionDenied('Доступ запрещен')
