@@ -30,4 +30,6 @@ urlpatterns = [
     path('mails/view/<int:pk>', MailingClientDetailView.as_view(), name='view_mail'),
     path('mails/edit/<int:pk>', MailingClientUpdateView.as_view(), name='edit_mail'),
     path('mails/delete/<int:pk>', MailingClientDeleteView.as_view(), name='delete_mail'),
+
+    path('mails/status/<int:pk>/', stop_mailing, name='stop_mailing'),
 ]
