@@ -1,5 +1,6 @@
 from random import sample
 
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
@@ -7,6 +8,14 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 from blog.models import Blog
 from send_mail.forms import MailSettingsForm, ClientForm, TextMailForm, MailingClientForm
 from send_mail.models import MailSettings, TextMail, Client, MailingClient
+
+
+class ManagerRequiredMixin:
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.groups.filter(name="manager").exists():
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
 
 def index(request):
