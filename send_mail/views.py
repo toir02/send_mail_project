@@ -1,8 +1,8 @@
 from random import sample
 
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
 from blog.models import Blog
@@ -208,3 +208,16 @@ class MailingClientDeleteView(ManagerRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('send_mail:mails')
+
+
+def stop_mailing(request, pk):
+    if not request.user.groups.filter(name="manager").exists() and not request.user.is_superuser:
+        raise PermissionDenied
+    mailing = MailSettings.objects.get(pk=pk)
+    if mailing.status == 'active' or mailing.status == 'created':
+        mailing.status = 'closed'
+        mailing.save()
+    else:
+        mailing.status = 'active'
+        mailing.save()
+    return redirect(reverse('send_mail:mails'))
