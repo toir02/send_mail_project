@@ -90,6 +90,6 @@ def block_user(request, pk):
         else:
             user.is_active = False
             user.save()
-        return redirect(reverse('users:user_list'))
+        return redirect(reverse('users:list'))
     else:
         raise PermissionDenied('Доступ запрещен')
