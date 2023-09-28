@@ -214,11 +214,11 @@ class MailingClientDeleteView(ManagerRequiredMixin, DeleteView):
 def stop_mailing(request, pk):
     if not request.user.groups.filter(name="manager").exists() and not request.user.is_superuser:
         raise PermissionDenied
-    mailing = MailSettings.objects.get(pk=pk)
-    if mailing.status == 'active' or mailing.status == 'created':
-        mailing.status = 'closed'
+    mailing = MailingClient.objects.get(pk=pk)
+    if mailing.settings.status == 'active' or mailing.settings.status == 'created':
+        mailing.settings.status = 'closed'
         mailing.save()
     else:
-        mailing.status = 'active'
+        mailing.settings.status = 'active'
         mailing.save()
     return redirect(reverse('send_mail:mails'))
