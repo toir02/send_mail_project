@@ -42,7 +42,7 @@
                    href="{% url 'send_mail:delete_mail' object.pk %}">Удалить</a>
                 {% endif %}
                 {% if user.is_staff %}
-                {% if object.status == 'active' %}
+                {% if object.settings.status == 'active' %}
                 <a class="btn btn-lg btn-block btn-outline-primary mt-3"
                    href="{% url 'send_mail:stop_mailing' object.pk %}">Остановить рассылку</a>
                 {% else %}
