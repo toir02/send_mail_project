@@ -1,5 +1,6 @@
 from random import sample
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
@@ -35,24 +36,11 @@ def index(request):
     return render(request, 'send_mail/home.html', context)
 
 
-class MailListView(ListView):
+class MailListView(LoginRequiredMixin, ListView):
     model = MailSettings
 
 
-class MailCreateView(CreateView):
-    model = MailSettings
-    form_class = MailSettingsForm
-    success_url = reverse_lazy('send_mail:settings')
-
-    def form_valid(self, form):
-        return super().form_valid(form)
-
-
-class MailDetailView(DetailView):
-    model = MailSettings
-
-
-class MailUpdateView(UpdateView):
+class MailCreateView(LoginRequiredMixin, CreateView):
     model = MailSettings
     form_class = MailSettingsForm
     success_url = reverse_lazy('send_mail:settings')
@@ -61,12 +49,25 @@ class MailUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class MailDeleteView(DeleteView):
+class MailDetailView(LoginRequiredMixin, DetailView):
+    model = MailSettings
+
+
+class MailUpdateView(LoginRequiredMixin, UpdateView):
+    model = MailSettings
+    form_class = MailSettingsForm
+    success_url = reverse_lazy('send_mail:settings')
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+
+class MailDeleteView(LoginRequiredMixin, DeleteView):
     model = MailSettings
     success_url = reverse_lazy('send_mail:settings')
 
 
-class ClientCreateView(CreateView):
+class ClientCreateView(LoginRequiredMixin, CreateView):
     model = Client
     form_class = ClientForm
 
@@ -77,18 +78,18 @@ class ClientCreateView(CreateView):
         return reverse_lazy('send_mail:clients')
 
 
-class ClientListView(ListView):
+class ClientListView(LoginRequiredMixin, ListView):
     model = Client
 
 
-class ClientDeleteView(DeleteView):
+class ClientDeleteView(LoginRequiredMixin, DeleteView):
     model = Client
 
     def get_success_url(self):
         return reverse_lazy('send_mail:clients')
 
 
-class ClientUpdateView(UpdateView):
+class ClientUpdateView(LoginRequiredMixin, UpdateView):
     model = Client
     form_class = ClientForm
 
@@ -99,7 +100,7 @@ class ClientUpdateView(UpdateView):
         return reverse_lazy('send_mail:clients')
 
 
-class TextMailCreateView(ManagerRequiredMixin, CreateView):
+class TextMailCreateView(ManagerRequiredMixin, LoginRequiredMixin, CreateView):
     model = TextMail
     form_class = TextMailForm
 
@@ -110,11 +111,11 @@ class TextMailCreateView(ManagerRequiredMixin, CreateView):
         return reverse_lazy('send_mail:messages')
 
 
-class TextMailListView(ListView):
+class TextMailListView(LoginRequiredMixin, ListView):
     model = TextMail
 
 
-class TextMailUpdateView(ManagerRequiredMixin, UpdateView):
+class TextMailUpdateView(ManagerRequiredMixin, LoginRequiredMixin, UpdateView):
     model = TextMail
     form_class = TextMailForm
 
@@ -125,14 +126,14 @@ class TextMailUpdateView(ManagerRequiredMixin, UpdateView):
         return reverse_lazy('send_mail:messages')
 
 
-class TextMailDeleteView(ManagerRequiredMixin, DeleteView):
+class TextMailDeleteView(ManagerRequiredMixin, LoginRequiredMixin, DeleteView):
     model = TextMail
 
     def get_success_url(self):
         return reverse_lazy('send_mail:messages')
 
 
-class TextMailDetailView(ManagerRequiredMixin, DetailView):
+class TextMailDetailView(ManagerRequiredMixin, LoginRequiredMixin, DetailView):
     model = TextMail
 
 
