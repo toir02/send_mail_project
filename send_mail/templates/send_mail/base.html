@@ -10,13 +10,18 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
     <h5 class="my-0 mr-md-auto font-weight-normal">Сервис рассылок</h5>
     <nav class="ms-5">
+        <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:index' %}">Главная</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:mails' %}">Рассылки</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:settings' %}">Настройки</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:clients' %}">Клиенты</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'send_mail:messages' %}">Сообщения</a>
+        <a class="p-2 btn btn-outline-primary" href="{% url 'blog:blog' %}">Блог</a>
     </nav>
     <nav class="ms-md-auto">
         {% if user.is_authenticated %}
+            {% if user.is_staff %}
+        <a class="p-2 btn btn-outline-primary" href="{% url 'users:list' %}">Список пользователей</a>
+            {% endif %}
         <a class="p-2 btn btn-outline-primary" href="{% url 'users:logout' %}">Выход</a>
         {% else %}
         <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">Войти</a>

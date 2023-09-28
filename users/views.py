@@ -1,10 +1,12 @@
 import random
 
-from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+from django.urls import reverse_lazy, reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 
 from users.forms import *
 from users.models import User
@@ -21,6 +23,9 @@ class RegisterView(CreateView):
         user.save()
 
         key = random.randint(1000, 9999)
+        user_email = self.request.POST.get('email')
+
+        self.request.session['user_email'] = user_email
         self.request.session['key'] = key
         user_email = self.request.POST.get('email')
         send_verification_mail(user_email, key)
@@ -35,7 +40,8 @@ class RegisterView(CreateView):
 
 def verification_user(request):
     key = request.session.get('key')
-    user_email = request.user.email
+    user_email = request.session.get('user_email')
+
     user = get_object_or_404(User, email=user_email)
 
     if request.method == 'POST':
@@ -48,7 +54,7 @@ def verification_user(request):
                     user.save()
                 return redirect('users:success_verification')
     else:
-        form = VerificationForm('Введите верный ключ верификации!')
+        form = VerificationForm()
     return render(request, 'users/verification.html', {'form': form})
 
 
@@ -61,10 +67,29 @@ class LoginView(BaseLoginView):
     model = User
 
     def get_success_url(self):
-        return reverse_lazy('send_mail:index')
+        return reverse_lazy('send_mail:mails')
 
 
 class LogoutView(BaseLogoutView):
 
     def get_success_url(self):
-        return reverse_lazy('send_mail:index')
+        return reverse_lazy('send_mail:mails')
+
+
+class UserListView(ListView):
+    model = User
+
+
+@login_required
+def block_user(request, pk):
+    if request.user.groups.filter(name="manager").exists() or request.user.is_superuser:
+        user = User.objects.get(pk=pk)
+        if not user.is_active:
+            user.is_active = True
+            user.save()
+        else:
+            user.is_active = False
+            user.save()
+        return redirect(reverse('users:list'))
+    else:
+        raise PermissionDenied('Доступ запрещен')

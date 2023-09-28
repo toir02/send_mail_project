@@ -1,0 +1,60 @@
+{% extends 'send_mail/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+                <h1 class="display-4">Сервис рассылок</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <div class="mb-2">
+                <p class="fs-4">3 случайные статьи из блога:</p>
+                <p>
+                    <button class="p-2 btn btn-outline-success" type="button" id="toggleButton">
+                        Статьи
+                    </button>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="collapse" id="blogList">
+                <ul>
+                    {% for object in random_articles %}
+                    <li>
+                        <a class="text-muted" href="{% url 'blog:view_blog' object.pk %}">{{ object.title }}</a>
+                        <p>{{ object.description | truncatechars:50 }}</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center"> <!-- Используем justify-content-center для выравнивания по центру -->
+        <div class="col-md-6"> <!-- Задаем желаемую ширину карточки -->
+            <div class="card">
+                <div class="card-header">
+                    <h4>Статистика рассылок</h4>
+                </div>
+                <div class="card-body">
+                    <p>Всего рассылок: {{ total_mailings }}</p>
+                    <p>Активных рассылок: {{ active_mailings }}</p>
+                    <p>Уникальных клиентов для рассылок: {{ unique_clients }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const toggleButton = document.getElementById('toggleButton');
+    const blogList = document.getElementById('blogList');
+
+    toggleButton.addEventListener('click', function () {
+        blogList.classList.toggle('show');
+    });
+</script>
+{% endblock %}

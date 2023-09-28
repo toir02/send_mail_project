@@ -24,10 +24,3 @@ class VerificationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('key',)
-
-
-class ResetPasswordForm(StyleFormMixin, forms.ModelForm):
-
-    class Meta:
-        model = User
-        fields = ('email',)

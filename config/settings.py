@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'send_mail',
     'django_crontab',
     'users',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -122,6 +123,9 @@ STATICFILES_DIR = (
     BASE_DIR / 'static/',
 )
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'noreply@oscarbot.ru'
@@ -136,4 +140,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRONJOBS = [
     ('*/1 * * * *', 'send_mail.services.send_mails')
 ]
+
 AUTH_USER_MODEL = 'users.User'

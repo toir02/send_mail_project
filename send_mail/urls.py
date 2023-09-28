@@ -7,7 +7,8 @@ from send_mail.views import *
 app_name = SendMailConfig.name
 
 urlpatterns = [
-    path('', MailListView.as_view(), name='settings'),
+    path('', index, name='index'),
+    path('settings/', MailListView.as_view(), name='settings'),
     path('settings/create/', MailCreateView.as_view(), name='create_settings'),
     path('settings/view/<int:pk>/', MailDetailView.as_view(), name='view_settings'),
     path('settings/edit/<int:pk>/', MailUpdateView.as_view(), name='edit_settings'),
@@ -29,4 +30,6 @@ urlpatterns = [
     path('mails/view/<int:pk>', MailingClientDetailView.as_view(), name='view_mail'),
     path('mails/edit/<int:pk>', MailingClientUpdateView.as_view(), name='edit_mail'),
     path('mails/delete/<int:pk>', MailingClientDeleteView.as_view(), name='delete_mail'),
+
+    path('mails/status/<int:pk>/', stop_mailing, name='stop_mailing'),
 ]

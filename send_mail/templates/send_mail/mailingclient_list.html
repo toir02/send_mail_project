@@ -4,8 +4,16 @@
     <h1 class="display-4">Сервис рассылок</h1>
     <p class="lead">Сервис рассылок - это отличный вариант отправки уведомлений большому количеству пользователей.</p>
     <div class="col-12 mb-5">
+        {% if user.is_authenticated %}
         <a class="btn btn-outline-primary" href="{% url 'send_mail:create_mail' %}">Добавить новую рассылку</a>
+        {% else %}
+        <div class="alert alert-warning" style="display: inline-block;" role="alert">
+            Для создания рассылки, пожалуйста, войдите в систему.
+        </div>
+        {% endif %}
     </div>
+
+
     {% for object in object_list %}
     <div class="col-3">
         <div class="card mb-4 box-shadow">
@@ -21,12 +29,27 @@
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                     Номер настройки: {{ object.settings.id }}
                 </ul>
+                {% if not user.is_staff or user.is_superuser %}
                 <a class="btn btn-lg btn-block btn-outline-primary mt-3"
                    href="{% url 'send_mail:view_mail' object.pk %}">Посмотреть</a>
+                {% endif %}
+                {% if not user.is_staff or user.is_superuser %}
                 <a class="btn btn-lg btn-block btn-outline-primary mt-3"
                    href="{% url 'send_mail:edit_mail' object.pk %}">Изменить</a>
+                {% endif %}
+                {% if not user.is_staff or user.is_superuser %}
                 <a class="btn btn-lg btn-block btn-outline-primary mt-3"
                    href="{% url 'send_mail:delete_mail' object.pk %}">Удалить</a>
+                {% endif %}
+                {% if user.is_staff %}
+                {% if object.settings.status == 'active' %}
+                <a class="btn btn-lg btn-block btn-outline-primary mt-3"
+                   href="{% url 'send_mail:stop_mailing' object.pk %}">Остановить рассылку</a>
+                {% else %}
+                <a class="btn btn-lg btn-block btn-outline-primary mt-3"
+                   href="{% url 'send_mail:stop_mailing' object.pk %}">Запустить рассылку</a>
+                {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>

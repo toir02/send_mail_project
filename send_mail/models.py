@@ -1,3 +1,4 @@
+import django
 from django.db import models
 
 NULLABLE = {'blank': True,
@@ -21,7 +22,6 @@ class Client(models.Model):
 
 
 class MailSettings(models.Model):
-
     PERIOD_CHOICES = (
         ('D', 'Каждый день'),
         ('W', 'Каждую неделю'),
@@ -76,6 +76,9 @@ class LogMail(models.Model):
 class MailingClient(models.Model):
     clients = models.ManyToManyField(Client, verbose_name='клиенты')
     settings = models.ForeignKey(MailSettings, on_delete=models.CASCADE, verbose_name='настройка', **NULLABLE)
+
+    created_by = models.ForeignKey(django.conf.settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
+                                   verbose_name='создано пользователем', **NULLABLE)
 
     def __str__(self):
         return f'{self.clients} {self.settings}'
