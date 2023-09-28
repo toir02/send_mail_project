@@ -20,7 +20,7 @@
     <nav class="ms-md-auto">
         {% if user.is_authenticated %}
             {% if user.is_staff %}
-        <a class="p-2 btn btn-outline-primary" href="{% url 'users:users' %}">Список пользователей</a>
+        <a class="p-2 btn btn-outline-primary" href="{% url 'users:list' %}">Список пользователей</a>
             {% endif %}
         <a class="p-2 btn btn-outline-primary" href="{% url 'users:logout' %}">Выход</a>
         {% else %}
